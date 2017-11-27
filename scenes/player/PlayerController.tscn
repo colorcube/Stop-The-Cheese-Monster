@@ -1,230 +1,268 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/player/PlayerController.gd" type="Script" id=1]
-[ext_resource path="res://scenes/sky.png" type="Texture" id=2]
-[ext_resource path="res://scenes/shooter/OnProjectileCollideToParent.gd" type="Script" id=3]
-[ext_resource path="res://scenes/shooter/Shooter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/player/player_projectile.msh" type="Mesh" id=5]
-[ext_resource path="res://scenes/player/spaceship.scn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/shooter/OnProjectileCollideToParent.gd" type="Script" id=2]
+[ext_resource path="res://scenes/shooter/Shooter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/player/player_projectile.mesh" type="ArrayMesh" id=4]
+[ext_resource path="res://scenes/player/spaceship.scn" type="PackedScene" id=5]
 
-[sub_resource type="Environment" id=1]
+[sub_resource type="ProceduralSky" id=1]
 
-ambient_light/enabled = false
-ambient_light/color = Color( 0.152344, 0.152344, 0.152344, 1 )
-ambient_light/energy = 1.0
-fxaa/enabled = true
-background/mode = 3
-background/color = Color( 0.249814, 0.0737, 0.410156, 1 )
-background/texture = ExtResource( 2 )
-background/energy = 1.0
-background/scale = 1.0
-background/glow = 0.0
-background/canvas_max_layer = null
-glow/enabled = false
-glow/blur_passes = 1
-glow/blur_scale = 1
-glow/blur_strength = 1
-glow/blur_blend_mode = null
-glow/bloom = 0.0
-glow/bloom_treshold = 0.5
-dof_blur/enabled = false
-dof_blur/blur_passes = 1
-dof_blur/begin = 100.0
-dof_blur/range = 10.0
-hdr/enabled = false
-hdr/tonemapper = 0
-hdr/exposure = 0.4
-hdr/white = 1.0
-hdr/glow_treshold = 0.95
-hdr/glow_scale = 0.2
-hdr/min_luminance = 0.4
-hdr/max_luminance = 8.0
-hdr/exposure_adj_speed = 0.5
-fog/enabled = true
-fog/begin = 2900.0
-fog/begin_color = Color( 0.0573209, 0.0541534, 0.152344, 1 )
-fog/end_color = Color( 0.0573209, 0.0541534, 0.152344, 1 )
-fog/attenuation = 0.965937
-fog/bg = false
-bcs/enabled = false
-bcs/brightness = 1.0
-bcs/contrast = 1.0
-bcs/saturation = 1.0
-srgb/enabled = false
+radiance_size = 4
+sky_top_color = Color( 0.0844641, 0.0340576, 0.242188, 1 )
+sky_horizon_color = Color( 0.207843, 0.235294, 0.454902, 1 )
+sky_curve = 0.25
+sky_energy = 1.0
+ground_bottom_color = Color( 0.576471, 0.443137, 0.439216, 1 )
+ground_horizon_color = Color( 0.392157, 0.341176, 0.45098, 1 )
+ground_curve = 0.01
+ground_energy = 1.0
+sun_color = Color( 0.816406, 0.681568, 0.395447, 1 )
+sun_latitude = 35.0
+sun_longitude = 0.0
+sun_angle_min = 1.0
+sun_angle_max = 100.0
+sun_curve = 0.05
+sun_energy = 0.0
+texture_size = 1
+_sections_unfolded = [ "Ground", "Sky", "Sun", "Texture" ]
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="Environment" id=2]
+
+background_mode = 3
+background_sky = SubResource( 1 )
+background_sky_custom_fov = 0.0
+background_color = Color( 0.113108, 0.0140991, 0.257812, 1 )
+background_energy = 2.0
+background_canvas_max_layer = 0
+ambient_light_color = Color( 0.14902, 0.14902, 0.14902, 1 )
+ambient_light_energy = 0.5
+ambient_light_sky_contribution = 1.0
+fog_enabled = false
+fog_color = Color( 0.054902, 0.0509804, 0.14902, 1 )
+fog_sun_color = Color( 1, 0.9, 0.7, 1 )
+fog_sun_amount = 0.0
+fog_depth_enabled = true
+fog_depth_begin = 2900.0
+fog_depth_curve = 1.0
+fog_transmit_enabled = false
+fog_transmit_curve = 1.0
+fog_height_enabled = false
+fog_height_min = 0.0
+fog_height_max = 100.0
+fog_height_curve = 1.0
+tonemap_mode = 0
+tonemap_exposure = 1.0
+tonemap_white = 1.0
+auto_exposure_enabled = false
+auto_exposure_scale = 0.4
+auto_exposure_min_luma = 0.05
+auto_exposure_max_luma = 8.0
+auto_exposure_speed = 0.5
+ss_reflections_enabled = false
+ss_reflections_max_steps = 64
+ss_reflections_fade_in = 0.15
+ss_reflections_fade_out = 2.0
+ss_reflections_depth_tolerance = 0.2
+ss_reflections_roughness = true
+ssao_enabled = false
+ssao_radius = 1.0
+ssao_intensity = 1.0
+ssao_radius2 = 0.0
+ssao_intensity2 = 1.0
+ssao_bias = 0.01
+ssao_light_affect = 0.0
+ssao_color = Color( 0, 0, 0, 1 )
+ssao_quality = 0
+ssao_blur = 3
+ssao_edge_sharpness = 4.0
+dof_blur_far_enabled = false
+dof_blur_far_distance = 1500.0
+dof_blur_far_transition = 200.0
+dof_blur_far_amount = 0.08
+dof_blur_far_quality = 1
+dof_blur_near_enabled = false
+dof_blur_near_distance = 2.0
+dof_blur_near_transition = 1.0
+dof_blur_near_amount = 0.1
+dof_blur_near_quality = 1
+glow_enabled = false
+glow_levels/1 = false
+glow_levels/2 = false
+glow_levels/3 = true
+glow_levels/4 = false
+glow_levels/5 = true
+glow_levels/6 = false
+glow_levels/7 = false
+glow_intensity = 0.8
+glow_strength = 1.0
+glow_bloom = 0.0
+glow_blend_mode = 2
+glow_hdr_threshold = 1.0
+glow_hdr_scale = 2.0
+glow_bicubic_upscale = false
+adjustment_enabled = false
+adjustment_brightness = 1.0
+adjustment_contrast = 1.0
+adjustment_saturation = 1.0
+_sections_unfolded = [ "Ambient Light", "Auto Exposure", "Background", "DOF Far Blur", "DOF Near Blur", "Fog", "Glow", "SS Reflections", "Tonemap" ]
+
+[sub_resource type="BoxShape" id=3]
 
 extents = Vector3( 3, 1, 3 )
 
-[sub_resource type="SphereShape" id=3]
+[sub_resource type="SphereShape" id=4]
 
 radius = 0.2
+_sections_unfolded = [ "Resource" ]
 
-[sub_resource type="FixedMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=5]
 
-flags/visible = true
-flags/double_sided = false
-flags/invert_faces = false
-flags/unshaded = false
-flags/on_top = false
-flags/lightmap_on_uv2 = true
-flags/colarray_is_srgb = true
-params/blend_mode = 0
-params/depth_draw = 1
-params/line_width = 0.0
-fixed_flags/use_alpha = false
-fixed_flags/use_color_array = false
-fixed_flags/use_point_size = false
-fixed_flags/discard_alpha = false
-fixed_flags/use_xy_normalmap = false
-params/diffuse = Color( 0.298039, 0.807843, 1, 1 )
-params/specular = Color( 0, 0, 0, 1 )
-params/emission = Color( 0.298039, 0.807843, 1, 1 )
-params/specular_exp = 40.0
-params/detail_mix = 1.0
-params/normal_depth = 1
-params/shader = 0
-params/shader_param = 0.5
-params/glow = 1.0
-params/point_size = 1.0
-uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-textures/diffuse_tc = 0
-textures/detail_tc = 0
-textures/specular_tc = 0
-textures/emission_tc = 0
-textures/specular_exp_tc = 0
-textures/glow_tc = 0
-textures/normal_tc = 0
-textures/shade_param_tc = 0
+render_priority = 0
+flags_transparent = false
+flags_unshaded = false
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 1
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 0, 1, 0.929688, 1 )
+metallic = 0.0
+metallic_specular = 0.5
+metallic_texture_channel = 0
+roughness = 0.0
+roughness_texture_channel = 0
+emission_enabled = true
+emission = Color( 0, 0.953125, 0.86377, 1 )
+emission_energy = 1.0
+emission_operator = 0
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Albedo", "Emission", "Flags", "Parameters", "Vertex Color" ]
 
-[sub_resource type="FixedMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=6]
 
-flags/visible = true
-flags/double_sided = false
-flags/invert_faces = false
-flags/unshaded = false
-flags/on_top = false
-flags/lightmap_on_uv2 = true
-flags/colarray_is_srgb = true
-params/blend_mode = 0
-params/depth_draw = 1
-params/line_width = 1.875
-fixed_flags/use_alpha = false
-fixed_flags/use_color_array = true
-fixed_flags/use_point_size = false
-fixed_flags/discard_alpha = false
-fixed_flags/use_xy_normalmap = false
-params/diffuse = Color( 1, 1, 1, 1 )
-params/specular = Color( 0, 0, 0, 1 )
-params/emission = Color( 0, 0, 0, 1 )
-params/specular_exp = 40
-params/detail_mix = 1.0
-params/normal_depth = 1
-params/shader = 0
-params/shader_param = 0.5
-params/glow = 0
-params/point_size = 1.0
-uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-textures/diffuse_tc = 0
-textures/detail_tc = 0
-textures/specular_tc = 0
-textures/emission_tc = 0
-textures/specular_exp_tc = 0
-textures/glow_tc = 0
-textures/normal_tc = 0
-textures/shade_param_tc = 0
-
-[sub_resource type="FixedMaterial" id=6]
-
-flags/visible = true
-flags/double_sided = false
-flags/invert_faces = false
-flags/unshaded = false
-flags/on_top = false
-flags/lightmap_on_uv2 = true
-flags/colarray_is_srgb = true
-params/blend_mode = 0
-params/depth_draw = 1
-params/line_width = 0.0
-fixed_flags/use_alpha = true
-fixed_flags/use_color_array = true
-fixed_flags/use_point_size = false
-fixed_flags/discard_alpha = false
-fixed_flags/use_xy_normalmap = false
-params/diffuse = Color( 1, 1, 1, 1 )
-params/specular = Color( 0, 0, 0, 1 )
-params/emission = Color( 0.148438, 0.148438, 0.148438, 1 )
-params/specular_exp = 40
-params/detail_mix = 1.0
-params/normal_depth = 1
-params/shader = 0
-params/shader_param = 0.5
-params/glow = 0
-params/point_size = 1.0
-uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-textures/diffuse_tc = 0
-textures/detail_tc = 0
-textures/specular_tc = 0
-textures/emission_tc = 0
-textures/specular_exp_tc = 0
-textures/glow_tc = 0
-textures/normal_tc = 0
-textures/shade_param_tc = 0
+render_priority = 0
+flags_transparent = false
+flags_unshaded = false
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+params_diffuse_mode = 1
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 1, 1, 1, 1 )
+metallic = 0.0
+metallic_specular = 0.5
+metallic_texture_channel = 0
+roughness = 0.0
+roughness_texture_channel = 0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Vertex Color" ]
 
 [node name="PlayerController" type="Spatial"]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-script/script = ExtResource( 1 )
+script = ExtResource( 1 )
 forward_speed = 0
 
 [node name="Camera" type="Camera" parent="."]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 5, 25 )
+transform = Transform( 1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, -0.0842266, 5, 24.954 )
 projection = 0
 fov = 60.0
 near = 0.1
 far = 3000.0
 keep_aspect = 1
 current = false
-visible_layers = 1048575
-environment = SubResource( 1 )
+cull_mask = 1048575
+environment = SubResource( 2 )
 h_offset = 0.0
 v_offset = 0.0
+doppler/tracking = 0
 
 [node name="Player" type="KinematicBody" parent="."]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-input/ray_pickable = true
-input/capture_on_drag = false
-shape_count = 1
-shapes/0/shape = SubResource( 2 )
-shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.926743 )
-shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 7
-collide_with/static = true
-collide_with/kinematic = true
-collide_with/rigid = true
-collide_with/character = true
-collision/margin = 0.001
-script/script = ExtResource( 3 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 7
+collision/safe_margin = 0.001
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.926743 )
-shape = SubResource( 2 )
-trigger = false
-_update_shape_index = 0
-
-[node name="Shooter" parent="Player" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.23579 )
-mesh = ExtResource( 5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.926743 )
 shape = SubResource( 3 )
-shoot_sample_name = "shoot1"
-hit_sample_name = "hit2"
+disabled = false
+
+[node name="Shooter" parent="Player" instance=ExtResource( 3 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.23579 )
+mesh = ExtResource( 4 )
+shape = SubResource( 4 )
+shoot_sample_name = "SoundPlayerShoot"
+hit_sample_name = "SoundPlayerHit"
 period = 0.1
 projectile_lifetime = 4
 relative_speed = 500
@@ -232,82 +270,48 @@ collision_layers = 8
 collision_mask = 6
 destruct_mask = 6
 
-[node name="spaceship" parent="Player" instance=ExtResource( 6 )]
+[node name="spaceship" parent="Player" instance=ExtResource( 5 )]
+
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="lights" parent="Player/spaceship"]
 
-geometry/material_override = SubResource( 4 )
+material_override = SubResource( 5 )
+_sections_unfolded = [ "Geometry", "material" ]
 
 [node name="body" parent="Player/spaceship"]
 
-geometry/material_override = SubResource( 5 )
+material_override = SubResource( 6 )
+_sections_unfolded = [ "Geometry", "material" ]
 
 [node name="SmokeParticles" type="Particles" parent="Player"]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20752, 1.88098 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20752, 1.88098 )
 layers = 1
-geometry/visible = true
-geometry/material_override = null
-geometry/cast_shadow = 0
-geometry/receive_shadows = false
-geometry/range_begin = 0.0
-geometry/range_end = 0.0
-geometry/extra_cull_margin = 0.0
-geometry/billboard = false
-geometry/billboard_y = false
-geometry/depth_scale = false
-geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
-geometry/baked_light_tex_id = 0
-material = SubResource( 6 )
-amount = 32
+material_override = null
+cast_shadow = 0
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
 emitting = false
-visibility = AABB( -4, -4, -4, 8, 8, 8 )
-emission_extents = Vector3( 0.1, 0.1, 0.1 )
-emission_base_velocity = Vector3( 0, 0, 0 )
-emission_points = Vector3Array(  )
-gravity_normal = Vector3( 0, -1, 0 )
+amount = 32
+lifetime = 1.0
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_aabb = AABB( -4, -4, -4, 8, 8, 8 )
 local_coords = true
-emit_timeout = 2.5
-vars/lifetime = 1.5
-vars/spread = 0.09
-vars/gravity = 0.0
-vars/linear_vel = 15.0
-vars/angular_vel = 0.0
-vars/linear_accel = 0.0
-vars/radial_accel = 0.0
-vars/tan_accel = 0.0
-vars/damping = 0.0
-vars/initial_size = 0.5
-vars/final_size = 1.5
-vars/initial_angle = 0.0
-vars/height_from_velocity = false
-vars/height = 1.0
-vars/height_speed_scale = 0.0
-rand/lifetime = 0.0
-rand/spread = 0.0
-rand/gravity = 0.0
-rand/linear_vel = 0.0
-rand/angular_vel = 0.0
-rand/linear_accel = 0.0
-rand/radial_accel = 0.0
-rand/tan_accel = 0.0
-rand/damping = 0.0
-rand/initial_size = 0.0
-rand/final_size = 1.0
-rand/initial_angle = 16.0
-rand/height = 0.0
-rand/height_speed_scale = 0.0
-color_phases/count = 2
-phase_0/pos = 0.0
-phase_0/color = Color( 0.298039, 0.807843, 1, 0.437137 )
-phase_1/pos = 0.51
-phase_1/color = Color( 0.136719, 0.136719, 0.136719, 0.163922 )
-phase_2/pos = 1.0
-phase_2/color = Color( 0, 0, 0, 1 )
-phase_3/pos = 1.0
-phase_3/color = Color( 0, 0, 0, 1 )
+draw_order = 0
+process_material = null
+draw_passes = 1
+draw_pass_1 = null
 
 
 [editable path="Player/spaceship"]

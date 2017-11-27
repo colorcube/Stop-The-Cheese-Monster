@@ -16,12 +16,9 @@ func get_forward_speed():
 
 onready var camera_player_offset = get_node("Camera").get_translation() - get_node("Player").get_translation()
 
-onready var sample_player = get_node("/root/Game/SamplePlayer")
-
 func _ready():
 	set_process(true)
-	
-	set_fixed_process(true)
+	set_physics_process(true)
 
 
 func get_player_pos():
@@ -33,20 +30,20 @@ func _process(delta):
 	
 	var camera = get_node("Camera")
 	var camera_rotation = camera.get_rotation()
-	camera_rotation.y = -player_pos.x / PLAYER_POS_BOUND_SIZE.width * 0.4
+	camera_rotation.y = -player_pos.x / PLAYER_POS_BOUND_SIZE.x * 0.4
 	camera.set_rotation(camera_rotation)
 	
 	
 	var material = get_node("Player/spaceship/lights").get_material_override()
-	var diffuse_color = material.get_parameter(FixedMaterial.PARAM_DIFFUSE)
+	var diffuse_color = material.get_albedo()
 	if player_alive():
 		diffuse_color.v = float(health)/max_health * 0.5 + 0.5
 	else:
 		diffuse_color.v = lerp(diffuse_color.v, 0.1, delta * 8)
-	material.set_parameter(FixedMaterial.PARAM_DIFFUSE, diffuse_color)
-	var emission_color = material.get_parameter(FixedMaterial.PARAM_EMISSION)
+	material.set_albedo(diffuse_color)
+	var emission_color = material.get_emission()
 	emission_color.v = diffuse_color.v
-	material.set_parameter(FixedMaterial.PARAM_EMISSION, emission_color)
+	material.set_emission(emission_color)
 
 
 func shoot():
@@ -58,7 +55,7 @@ var wish_roll = 0
 var wish_pitch = 0
 
 
-func _fixed_process(delta):
+func _physics_process(delta):
 	if player_alive():
 		if player_won:
 			player_won_process(delta)
@@ -89,7 +86,7 @@ func player_playing_process(delta):
 	
 	# movement
 	var wish_move_direction = Vector2(0, 0)
-	
+
 	if Input.is_action_pressed("move_up"):
 		wish_move_direction += Vector2(0, 1)
 	if Input.is_action_pressed("move_down"):
@@ -110,13 +107,15 @@ func player_playing_process(delta):
 	
 	
 	var move_direction = Vector2(0, 0)
-	if (-PLAYER_POS_BOUND_SIZE.width/2 < pos.x + wish_delta_pos.x) && (pos.x + wish_delta_pos.x < PLAYER_POS_BOUND_SIZE.width/2):
+	if (-PLAYER_POS_BOUND_SIZE.x/2 < pos.x + wish_delta_pos.x) && (pos.x + wish_delta_pos.x < PLAYER_POS_BOUND_SIZE.x/2):
 		move_direction.x = wish_move_direction.x
-	if (-PLAYER_POS_BOUND_SIZE.height/2 < pos.y + wish_delta_pos.y) && (pos.y + wish_delta_pos.y < PLAYER_POS_BOUND_SIZE.height/2):
+	if (-PLAYER_POS_BOUND_SIZE.y/2 < pos.y + wish_delta_pos.y) && (pos.y + wish_delta_pos.y < PLAYER_POS_BOUND_SIZE.y/2):
 		move_direction.y = wish_move_direction.y
 	
 	var delta_pos = move_direction * SPEED * delta
-	player.move(Vector3(delta_pos.x, delta_pos.y, 0))
+	#TODO use KinematicCollision here?
+	# or we just want move() and detect collision differently. but move() is no longer available?
+	player.move_and_collide(Vector3(delta_pos.x, delta_pos.y, 0))
 	
 	# Roll, pitch calculation
 	wish_roll = -PI/6 * move_direction.x
@@ -134,7 +133,7 @@ func player_lost_process(delta):
 	
 	# I am sorry. This is my first 3d game. Giving collision shape to ground didn't work(((
 	if get_node("../Ground").get_global_transform().origin.y < get_player_pos().y:
-		get_node("Player").move(Vector3(delta_x, delta_y, delta_z))
+		get_node("Player").move_and_collide(Vector3(delta_x, delta_y, delta_z))
 	
 	wish_pitch = -PI/5
 	
@@ -156,7 +155,7 @@ func player_won_process(delta):
 	var delta_y = player_won_velocity_y * delta
 	var delta_z = forward_velocity.z * 0.5 * delta
 	
-	get_node("Player").move(Vector3(delta_x, delta_y, delta_z))
+	get_node("Player").move_and_collide(Vector3(delta_x, delta_y, delta_z))
 	
 	wish_roll = 0
 	wish_pitch = PI/10
@@ -186,7 +185,8 @@ func on_projectile_collide(damage):
 	if !player_alive():
 		get_node("Player/SmokeParticles").set_emitting(true)
 		get_node("Player/Shooter").damage = 0
-		sample_player.play("explosion5")
+
+		get_node("/root/Game/SoundPlayerExplosion").play()
 
 func player_alive():
 	return health > 0

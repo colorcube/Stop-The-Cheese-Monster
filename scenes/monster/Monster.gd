@@ -11,7 +11,7 @@ onready var animation_tree_player = get_node("Spiderbot/AnimationTreePlayer")
 func _ready():
 	set_process(true)
 #	set_process_input(true)
-	set_fixed_process(true)
+	set_physics_process(true)
 #	for arm in get_node("Arms").get_children():
 #		arm.on_projectile_collide(1000)
 
@@ -46,15 +46,15 @@ func _process(delta):
 	
 		# Lights color
 		var material = get_node("Spiderbot/Armature/Skeleton/lights").get_material_override()
-		var diffuse_color = material.get_parameter(FixedMaterial.PARAM_DIFFUSE)
+		var diffuse_color = material.get_albedo()
 		if alive():
 			diffuse_color.v = float(health)/max_health * 0.5 + 0.5
 		else:
 			diffuse_color.v = lerp(diffuse_color.v, 0.1, delta * 8)
-		material.set_parameter(FixedMaterial.PARAM_DIFFUSE, diffuse_color)
-		var emission_color = material.get_parameter(FixedMaterial.PARAM_EMISSION)
+		material.set_albedo(diffuse_color)
+		var emission_color = material.get_emission()
 		emission_color.v = diffuse_color.v
-		material.set_parameter(FixedMaterial.PARAM_EMISSION, emission_color)
+		material.set_emission(emission_color)
 
 #func _input(event):
 #	if event.type == InputEvent.KEY:
@@ -94,7 +94,7 @@ export var walking_speed = 200
 onready var walking_velocity = Vector3(0, 0, -walking_speed)
 var wish_walking = 1
 var walking = 1
-func _fixed_process(delta):
+func _physics_process(delta):
 	walking = lerp(walking, wish_walking, 10 * delta)
 	animation_tree_player.blend2_node_set_amount("IdleWalk", walking)
 	
@@ -115,13 +115,13 @@ func turn_to_player(delta):
 	var to_player_xyz = player_controller.get_player_pos() - get_transform().origin
 	var wish_rotation = Vector2(to_player_xyz.x, to_player_xyz.z).angle()
 	
-	var rotation = get_node("Arms").get_rotation().y
-	rotation = lerp(rotation, wish_rotation, delta * 5)
+	var arms_rotation = get_node("Arms").get_rotation().y
+	arms_rotation = lerp(arms_rotation, wish_rotation, delta * 5)
 	
-	get_node("Arms").set_rotation(Vector3(0, rotation, 0))
+	get_node("Arms").set_rotation(Vector3(0, arms_rotation, 0))
 	
 	#idk why angle has to be multiplied by 0.5. Maybe it has smth to do with Blender.
-	var right_left_ration = (rotation * 0.5 + PI/2)/PI
+	var right_left_ration = (arms_rotation * 0.5 + PI/2)/PI
 	animation_tree_player.blend2_node_set_amount("Chest", right_left_ration)
 
 
@@ -140,8 +140,8 @@ func shoot_pattern_process():
 		for i in range(arms.size()):
 			var point = shoot_pattern[i][floor(shoot_pattern_index)][0]
 			var point3 = Vector3()
-			point3.x = point.x * player_controller.PLAYER_POS_BOUND_SIZE.width
-			point3.y = point.y * player_controller.PLAYER_POS_BOUND_SIZE.height
+			point3.x = point.x * player_controller.PLAYER_POS_BOUND_SIZE.x
+			point3.y = point.y * player_controller.PLAYER_POS_BOUND_SIZE.y
 			point3 += player_controller.get_global_transform().origin
 			arms[i].direct_at(point3)
 			if !arms[i].can_shoot():

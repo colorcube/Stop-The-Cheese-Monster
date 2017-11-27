@@ -8,7 +8,7 @@ var arm_lower
 var global_node
 
 # material should be "made unique" in each instance of MonsterArm
-export(FixedMaterial) var material
+export (SpatialMaterial) var material
 var color
 
 func _ready():
@@ -17,7 +17,7 @@ func _ready():
 	arm_upper = get_node("ArmUpper")
 	arm_lower = get_node("ArmUpper/ArmLower")
 	
-	color = material.get_parameter(FixedMaterial.PARAM_DIFFUSE)
+	color = material.get_albedo()
 	arm_upper.get_node("InnerMesh").set_material_override(material)
 	arm_lower.get_node("InnerMesh").set_material_override(material)
 	
@@ -26,7 +26,7 @@ func _ready():
 	wish_lower_quat = Quat(arm_lower.get_transform().basis)
 	
 	set_process(true)
-	set_fixed_process(true)
+	set_physics_process(true)
 	
 	if flipped:
 		var shooter = get_node("ArmUpper/ArmLower/Shooter")
@@ -47,13 +47,13 @@ func _process(delta):
 	
 	if alive():
 		color.v = float(health)/max_health * 0.5 + 0.5
-		material.set_parameter(FixedMaterial.PARAM_DIFFUSE, color)
+		material.set_albedo(color)
 	else:
 		color.v = lerp(color.v, 0, delta * 8)
-		material.set_parameter(FixedMaterial.PARAM_DIFFUSE, color)
+		material.set_albedo(color)
 	
 
-func _fixed_process(delta):
+func _physics_process(delta):
 	if !alive():
 		fall_process(delta)
 
@@ -108,18 +108,18 @@ func fall_process(delta):
 	move(Vector3(0, delta_y, 0))
 
 func fall_off():
-	var global_transform = get_global_transform()
+	var arm_global_transform = get_global_transform()
 	var new_parent = get_node("/root/Game/Other")
 	get_parent().remove_child(self)
 	new_parent.add_child(self)
-	set_global_transform(global_transform)
+	set_global_transform(arm_global_transform)
 	
 	get_node("ArmUpper").set_layer_mask(0)
 	get_node("ArmUpper/ArmLower").set_layer_mask(0)
 	
 	set_layer_mask(2)
 	
-	get_node("/root/Game/SamplePlayer").play("arm1")
+	get_node("/root/Game/SoundMonsterArm").play()
 
 
 

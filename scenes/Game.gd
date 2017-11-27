@@ -31,23 +31,23 @@ func _process(delta):
 		if abs(monster.get_translation().z - player_controller.get_player_pos().z) < 150:
 			player_controller.set_forward_speed(player_monster_game_speed)
 		if !player_controller.player_alive():
-			game_over_hud.set_hidden(false)
+			game_over_hud.show()
 			gaming = false
 		if !monster.alive():
-			win_hud.set_hidden(false)
+			win_hud.show()
 			gaming = false
 
 
 const player_monster_game_speed = 200
 
 func add_player_controller():
-	player_controller = load("res://scenes/player/PlayerController.tscn").instance()
+	player_controller = preload("res://scenes/player/PlayerController.tscn").instance()
 	player_controller.set_forward_speed(1500)
 	player_controller.set_pause_mode(Node.PAUSE_MODE_STOP)
 	add_child(player_controller)
 
 func add_monster():
-	monster = load("res://scenes/monster/Monster.tscn").instance()
+	monster = preload("res://scenes/monster/Monster.tscn").instance()
 	monster.set_translation(player_controller.get_translation() + Vector3(0,0,-3500))
 	monster.player_controller_node_path = "../PlayerController"
 	monster.walking_speed = player_monster_game_speed
@@ -56,7 +56,7 @@ func add_monster():
 
 
 func _on_PlayButton_pressed():
-	play_button.set_hidden(true)
+	play_button.hide()
 	add_monster()
 	gaming = true
 

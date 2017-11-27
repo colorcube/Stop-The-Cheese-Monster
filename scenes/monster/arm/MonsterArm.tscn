@@ -1,184 +1,160 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/monster/arm/MonsterArm.gd" type="Script" id=1]
 [ext_resource path="res://scenes/shooter/OnProjectileCollideToParent.gd" type="Script" id=2]
-[ext_resource path="res://scenes/monster/arm/arm_part.msh" type="Mesh" id=3]
+[ext_resource path="res://scenes/monster/arm/arm_part.mesh" type="ArrayMesh" id=3]
 [ext_resource path="res://scenes/shooter/Shooter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/monster/arm/monster_projectile.msh" type="Mesh" id=5]
+[ext_resource path="res://scenes/monster/arm/monster_projectile.mesh" type="ArrayMesh" id=5]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="SpatialMaterial" id=1]
 
-extents = Vector3( 2, 2, 2 )
+render_priority = 0
+flags_transparent = false
+flags_unshaded = false
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 1
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 0.00784314, 0.603922, 0.6, 1 )
+metallic = 0.0
+metallic_specular = 0.5
+metallic_texture_channel = 0
+roughness = 0.0
+roughness_texture_channel = 0
+emission_enabled = true
+emission = Color( 0.00784314, 0.603922, 0.6, 1 )
+emission_energy = 1.0
+emission_operator = 0
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Albedo", "Ambient Occlusion", "Depth", "Emission", "NormalMap", "Proximity Fade", "Transmission" ]
 
-[sub_resource type="FixedMaterial" id=2]
-
-flags/visible = true
-flags/double_sided = false
-flags/invert_faces = false
-flags/unshaded = false
-flags/on_top = false
-flags/lightmap_on_uv2 = true
-flags/colarray_is_srgb = true
-params/blend_mode = 1
-params/depth_draw = 1
-params/line_width = 0.0
-fixed_flags/use_alpha = false
-fixed_flags/use_color_array = false
-fixed_flags/use_point_size = false
-fixed_flags/discard_alpha = false
-fixed_flags/use_xy_normalmap = false
-params/diffuse = Color( 0.00784314, 0.607843, 0.6, 1 )
-params/specular = Color( 0, 0, 0, 1 )
-params/emission = Color( 0, 0, 0, 1 )
-params/specular_exp = 40
-params/detail_mix = 1.0
-params/normal_depth = 1
-params/shader = 2
-params/shader_param = 1.0
-params/glow = 0
-params/point_size = 1.0
-uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-textures/diffuse_tc = 0
-textures/detail_tc = 0
-textures/specular_tc = 0
-textures/emission_tc = 0
-textures/specular_exp_tc = 0
-textures/glow_tc = 0
-textures/normal_tc = 0
-textures/shade_param_tc = 0
-
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=2]
 
 extents = Vector3( 2, 2, 7 )
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=3]
 
 extents = Vector3( 1.5, 1.5, 2.5 )
 
+[sub_resource type="BoxShape" id=4]
+
+extents = Vector3( 2, 2, 2 )
+
 [node name="Arm" type="KinematicBody"]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-input/ray_pickable = true
-input/capture_on_drag = false
-shape_count = 1
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-shapes/0/trigger = false
-collision/layers = 0
-collision/mask = 0
-collide_with/static = true
-collide_with/kinematic = false
-collide_with/rigid = false
-collide_with/character = false
-collision/margin = 0.001
-script/script = ExtResource( 1 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 0
+collision_mask = 0
+collision/safe_margin = 0.001
+script = ExtResource( 1 )
 flipped = false
-material = SubResource( 2 )
+material = null
 
 [node name="ArmUpper" type="KinematicBody" parent="."]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-input/ray_pickable = true
-input/capture_on_drag = false
-shape_count = 1
-shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
-shapes/0/trigger = false
-collision/layers = 2
-collision/mask = 0
-collide_with/static = false
-collide_with/kinematic = false
-collide_with/rigid = true
-collide_with/character = false
-collision/margin = 0.001
-script/script = ExtResource( 2 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 2
+collision_mask = 0
+collision/safe_margin = 0.001
+script = ExtResource( 2 )
 
 [node name="InnerMesh" type="MeshInstance" parent="ArmUpper"]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
 layers = 1
-geometry/visible = true
-geometry/material_override = SubResource( 2 )
-geometry/cast_shadow = 1
-geometry/receive_shadows = true
-geometry/range_begin = 0.0
-geometry/range_end = 0.0
-geometry/extra_cull_margin = 0.0
-geometry/billboard = false
-geometry/billboard_y = false
-geometry/depth_scale = false
-geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
-geometry/baked_light_tex_id = 0
-mesh/mesh = ExtResource( 3 )
-mesh/skeleton = NodePath("..")
+material_override = SubResource( 1 )
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 3 )
+skeleton = NodePath("..")
 material/0 = null
+_sections_unfolded = [ "Geometry" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="ArmUpper"]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
-shape = SubResource( 3 )
-trigger = false
-_update_shape_index = 0
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
+shape = SubResource( 2 )
+disabled = false
 
 [node name="ArmLower" type="KinematicBody" parent="ArmUpper"]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16 )
-input/ray_pickable = true
-input/capture_on_drag = false
-shape_count = 1
-shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
-shapes/0/trigger = false
-collision/layers = 2
-collision/mask = 0
-collide_with/static = false
-collide_with/kinematic = false
-collide_with/rigid = true
-collide_with/character = false
-collision/margin = 0.001
-script/script = ExtResource( 2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 2
+collision_mask = 0
+collision/safe_margin = 0.001
+script = ExtResource( 2 )
 
 [node name="InnerMesh" type="MeshInstance" parent="ArmUpper/ArmLower"]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
 layers = 1
-geometry/visible = true
-geometry/material_override = SubResource( 2 )
-geometry/cast_shadow = 1
-geometry/receive_shadows = true
-geometry/range_begin = 0.0
-geometry/range_end = 0.0
-geometry/extra_cull_margin = 0.0
-geometry/billboard = false
-geometry/billboard_y = false
-geometry/depth_scale = false
-geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
-geometry/baked_light_tex_id = 0
-mesh/mesh = ExtResource( 3 )
-mesh/skeleton = NodePath("..")
+material_override = SubResource( 1 )
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 3 )
+skeleton = NodePath("..")
 material/0 = null
+_sections_unfolded = [ "Geometry" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="ArmUpper/ArmLower"]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
-shape = SubResource( 3 )
-trigger = false
-_update_shape_index = 0
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
+shape = SubResource( 2 )
+disabled = false
 
 [node name="Shooter" parent="ArmUpper/ArmLower" instance=ExtResource( 4 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16 )
 mesh = ExtResource( 5 )
-shape = SubResource( 4 )
-shoot_sample_name = "shoot5"
-hit_sample_name = "hit4"
+shape = SubResource( 3 )
+shoot_sample_name = "SoundMonsterShoot"
+hit_sample_name = "SoundMonsterHit"
 period = 0.1
 projectile_lifetime = 2
 relative_speed = 100
@@ -187,9 +163,7 @@ destruct_mask = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-shape = SubResource( 1 )
-trigger = false
-_update_shape_index = 0
+shape = SubResource( 4 )
+disabled = false
 
 
