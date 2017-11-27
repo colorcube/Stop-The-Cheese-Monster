@@ -1,0 +1,15 @@
+*.bak
+*.project
+*.swp
+*~
+.DS_Store
+.TemporaryItems
+.buildpath
+.cache
+.project
+.session
+.settings
+/.idea
+/.vscode
+/nbproject
+/logs/
