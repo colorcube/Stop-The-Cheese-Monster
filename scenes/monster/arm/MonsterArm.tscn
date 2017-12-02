@@ -9,7 +9,7 @@
 [sub_resource type="SpatialMaterial" id=1]
 
 render_priority = 0
-flags_transparent = false
+flags_transparent = true
 flags_unshaded = false
 flags_vertex_lighting = false
 flags_no_depth_test = false
@@ -28,7 +28,7 @@ params_point_size = 1.0
 params_billboard_mode = 0
 params_grow = false
 params_use_alpha_scissor = false
-albedo_color = Color( 0.00784314, 0.603922, 0.6, 1 )
+albedo_color = Color( 0.00784314, 0.603922, 0.6, 0.287294 )
 metallic = 0.0
 metallic_specular = 0.5
 metallic_texture_channel = 0
@@ -58,7 +58,7 @@ uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
 proximity_fade_enable = false
 distance_fade_enable = false
-_sections_unfolded = [ "Albedo", "Ambient Occlusion", "Depth", "Emission", "NormalMap", "Proximity Fade", "Transmission" ]
+_sections_unfolded = [ "Albedo", "Ambient Occlusion", "Depth", "Emission", "Flags", "NormalMap", "Parameters", "Proximity Fade", "Transmission" ]
 
 [sub_resource type="BoxShape" id=2]
 
@@ -80,6 +80,7 @@ collision_layer = 0
 collision_mask = 0
 collision/safe_margin = 0.001
 script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "collision" ]
 flipped = false
 material = null
 
@@ -91,6 +92,7 @@ collision_layer = 2
 collision_mask = 0
 collision/safe_margin = 0.001
 script = ExtResource( 2 )
+_sections_unfolded = [ "Collision" ]
 
 [node name="InnerMesh" type="MeshInstance" parent="ArmUpper"]
 
@@ -124,6 +126,7 @@ collision_layer = 2
 collision_mask = 0
 collision/safe_margin = 0.001
 script = ExtResource( 2 )
+_sections_unfolded = [ "Collision" ]
 
 [node name="InnerMesh" type="MeshInstance" parent="ArmUpper/ArmLower"]
 
@@ -140,7 +143,7 @@ lod_max_hysteresis = 0.0
 mesh = ExtResource( 3 )
 skeleton = NodePath("..")
 material/0 = null
-_sections_unfolded = [ "Geometry" ]
+_sections_unfolded = [ "Geometry", "Transform", "Visibility" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="ArmUpper/ArmLower"]
 
@@ -159,7 +162,6 @@ period = 0.1
 projectile_lifetime = 2
 relative_speed = 100
 collision_layers = 4
-destruct_mask = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 

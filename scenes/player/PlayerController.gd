@@ -64,9 +64,9 @@ func _physics_process(delta):
 	else:
 		player_lost_process(delta)
 	
-	
+		
 	var player = get_node("Player")
-	
+
 	var roll = player.get_rotation().z
 	var pitch = player.get_rotation().x
 	
@@ -83,7 +83,7 @@ func player_playing_process(delta):
 	
 	
 	var player = get_node("Player")
-	
+
 	# movement
 	var wish_move_direction = Vector2(0, 0)
 
@@ -113,8 +113,9 @@ func player_playing_process(delta):
 		move_direction.y = wish_move_direction.y
 	
 	var delta_pos = move_direction * SPEED * delta
-	#TODO use KinematicCollision here?
+	# TODO use KinematicCollision here?
 	# or we just want move() and detect collision differently. but move() is no longer available?
+	# The problem is that the spaceship is moved backwards when colliding with a projetile
 	player.move_and_collide(Vector3(delta_pos.x, delta_pos.y, 0))
 	
 	# Roll, pitch calculation

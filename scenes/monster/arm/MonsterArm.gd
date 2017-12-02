@@ -105,7 +105,7 @@ var fall_velocity_y = 0
 func fall_process(delta):
 	fall_velocity_y += -40 * delta
 	var delta_y = fall_velocity_y * delta
-	move(Vector3(0, delta_y, 0))
+	move_and_collide(Vector3(0, delta_y, 0))
 
 func fall_off():
 	var arm_global_transform = get_global_transform()
@@ -113,11 +113,11 @@ func fall_off():
 	get_parent().remove_child(self)
 	new_parent.add_child(self)
 	set_global_transform(arm_global_transform)
-	
-	get_node("ArmUpper").set_layer_mask(0)
-	get_node("ArmUpper/ArmLower").set_layer_mask(0)
-	
-	set_layer_mask(2)
+
+	get_node("ArmUpper").set_collision_mask(0)
+	get_node("ArmUpper/ArmLower").set_collision_mask(0)
+
+	set_collision_mask(2)
 	
 	get_node("/root/Game/SoundMonsterArm").play()
 

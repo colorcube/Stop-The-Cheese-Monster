@@ -16,7 +16,6 @@ projectile_lifetime = 10
 relative_speed = 50
 collision_layers = 1
 collision_mask = 1
-destruct_mask = 0
 
 [node name="PeriodTimer" type="Timer" parent="."]
 
@@ -52,6 +51,6 @@ draw_order = 0
 process_material = null
 draw_passes = 1
 draw_pass_1 = null
-_sections_unfolded = [ "Geometry" ]
+_sections_unfolded = [ "Drawing", "Geometry", "Pause", "Process Material", "Transform", "Visibility" ]
 
 

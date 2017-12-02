@@ -37,7 +37,7 @@ func _process(delta):
 	
 	if get_node("Arms").get_child_count() == 0:
 		# Petals
-		get_node("Petals").set_layer_mask_bit(1, true)
+		get_node("Petals").set_collision_mask_bit(1, true)
 		
 		animation_tree_player.transition_node_set_current("Petals", 1)
 #		if Input.is_key_pressed(KEY_1) && alive():

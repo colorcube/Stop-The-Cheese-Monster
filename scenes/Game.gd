@@ -17,7 +17,7 @@ onready var win_hud = get_node("Hud/WinHud")
 func _ready():
 	set_process(true)
 	set_process_input(true)
-	
+
 	add_player_controller()
 
 func _input(event):

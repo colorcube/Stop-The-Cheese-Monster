@@ -6,22 +6,22 @@ This is a fork from <https://github.com/germanalen/Stop-The-Cheese-Monster> whic
 
 This is my attempt to learn Godot by porting this game to Godot 3.
 
+My goal is that the finished port looks mostly the same as the original. 
+
 ## Status
 
-pros:
-- the game starts and you can steer the spaceship and shoot (yeah)
+The game looks mostly like the original version. 
+The colors are a bit different due to different materials and lightning in Godot 3. 
+Some colors are set differently by purpose.
 
-cons:
-- collision detection don't work so you can't win or loose :-)
-- the colors are different
-- the lightning is different
-- the sky is different
-- particles might not work (explosion) but I'm not shure
-- there's a lag when the monster comes into the scene
+## Bugs
+
+- collision detection needs to be adapted (the spaceship moves when hit)
+- particles do not work (no idea how to configure them)
+- there's several points in the game when it freezes for seconds
+- ...
 
 ## Todo
-
-My goal is that the finished port looks mostly the same as the original. 
 
 Any help is appreciated. If you want to fix it, go ahead and please show me the result.
 
