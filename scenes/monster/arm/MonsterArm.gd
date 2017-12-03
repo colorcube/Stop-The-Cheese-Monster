@@ -21,13 +21,9 @@ func _ready():
 	arm_upper.get_node("InnerMesh").set_material_override(material)
 	arm_lower.get_node("InnerMesh").set_material_override(material)
 	
-	
 	wish_upper_quat = Quat(arm_upper.get_transform().basis)
 	wish_lower_quat = Quat(arm_lower.get_transform().basis)
-	
-	set_process(true)
-	set_physics_process(true)
-	
+		
 	if flipped:
 		var shooter = get_node("ArmUpper/ArmLower/Shooter")
 		shooter.set_scale(Vector3(-1, 1, 1))
@@ -36,7 +32,6 @@ func _ready():
 
 var wish_upper_quat
 var wish_lower_quat
-
 
 func _process(delta):
 	if alive():
@@ -69,7 +64,6 @@ func wiggle():
 	if wish_lower_quat.dot(Quat(arm_lower.get_transform().basis)) > wish_arm_quad_change_threshold:
 		var wish_lower_y = -(rand_range(-PI/2.1, 0))
 		wish_lower_quat = Quat(arm_lower.get_transform().basis.y, wish_lower_y)
-	
 
 
 func direct_at(point):
@@ -101,11 +95,14 @@ func on_projectile_collide(damage):
 func alive():
 	return health > 0
 
+
 var fall_velocity_y = 0
+
 func fall_process(delta):
 	fall_velocity_y += -40 * delta
 	var delta_y = fall_velocity_y * delta
 	move_and_collide(Vector3(0, delta_y, 0))
+
 
 func fall_off():
 	var arm_global_transform = get_global_transform()
@@ -120,7 +117,6 @@ func fall_off():
 	set_collision_mask(2)
 	
 	get_node("/root/Game/SoundMonsterArm").play()
-
 
 
 func can_shoot():

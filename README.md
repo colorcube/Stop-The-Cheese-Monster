@@ -18,7 +18,7 @@ Some colors are set differently by purpose.
 
 - collision detection needs to be adapted (the spaceship moves when hit)
 - particles do not work (no idea how to configure them)
-- there's several points in the game when it freezes for seconds
+- there's several points in the game when it freezes for seconds (has something to do with add_child())
 - ...
 
 ## Todo

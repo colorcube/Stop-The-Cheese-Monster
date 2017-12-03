@@ -9,7 +9,6 @@ export(String) var shoot_sample_name
 export(String) var hit_sample_name
 
 export var period = 1.0
-var period_timer
 
 export var damage = 1
 
@@ -21,8 +20,7 @@ export(int, FLAGS) var collision_layers = 1
 export(int, FLAGS) var collision_mask = 1
 
 func _ready():
-	period_timer = get_node("PeriodTimer")
-	period_timer.set_wait_time(period)
+	$PeriodTimer.set_wait_time(period)
 	
 	# FIXME
 	# var particles = get_node("Particles")
@@ -56,7 +54,6 @@ func create_projectile():
 	projectile.set_max_contacts_reported(1)
 	projectile.connect("body_entered", self, "projectile_on_body_enter", [projectile])
 	
-	
 	return projectile
 
 
@@ -78,13 +75,15 @@ func projectile_on_body_enter(body, projectile):
 
 
 func shoot(parent_velocity):
-	if period_timer.get_time_left() != 0:
+	if $PeriodTimer.get_time_left() != 0:
 		return
-	period_timer.start()
+	$PeriodTimer.start()
 	
 	var projectile_parent = get_node("/root/Game/Other")
 	var projectile = create_projectile()
 	projectile.set_transform(projectile_parent.get_global_transform().affine_inverse() * get_global_transform())
+	
+	# FIXME this call will freeze the game for a second
 	projectile_parent.add_child(projectile)
 	projectile.set_linear_velocity(parent_velocity + projectile.get_transform().basis.z * (-relative_speed))
 	

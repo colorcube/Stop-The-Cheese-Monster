@@ -1,14 +1,9 @@
 extends Spatial
 
 var player_z = 0
-func set_player_z(player_z):
-	self.player_z = player_z
 
 onready var mesh1 = get_node("GroundMesh")
 onready var mesh2 = get_node("GroundMesh 2")
-
-func _ready():
-	set_process(true)
 
 
 func _process(delta):
@@ -32,3 +27,6 @@ func _process(delta):
 	mesh2.set_global_transform(mesh2_global_transform)
 	
 	pass
+
+func set_player_z(player_z):
+	self.player_z = player_z

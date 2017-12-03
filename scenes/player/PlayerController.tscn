@@ -187,6 +187,7 @@ _sections_unfolded = [ "Geometry", "material" ]
 [node name="SmokeParticles" type="Particles" parent="Player"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20752, 1.88098 )
+visible = false
 layers = 1
 material_override = null
 cast_shadow = 0

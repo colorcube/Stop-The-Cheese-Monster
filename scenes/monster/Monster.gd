@@ -8,10 +8,7 @@ onready var skeleton = get_node("Spiderbot/Armature/Skeleton")
 onready var chest_bone_id = skeleton.find_bone("Chest")
 onready var animation_tree_player = get_node("Spiderbot/AnimationTreePlayer")
 
-func _ready():
-	set_process(true)
-#	set_process_input(true)
-	set_physics_process(true)
+#func _ready():
 #	for arm in get_node("Arms").get_children():
 #		arm.on_projectile_collide(1000)
 
@@ -73,7 +70,7 @@ func _process(delta):
 
 const max_health = 20
 var health = max_health
-# Petals.on_projectile_collide
+
 func petals_on_projectile_collide(damage):
 	if get_node("Arms").get_child_count() == 0:
 		health -= damage
@@ -94,17 +91,21 @@ export var walking_speed = 200
 onready var walking_velocity = Vector3(0, 0, -walking_speed)
 var wish_walking = 1
 var walking = 1
+
 func _physics_process(delta):
 	walking = lerp(walking, wish_walking, 10 * delta)
 	animation_tree_player.blend2_node_set_amount("IdleWalk", walking)
 	
 	translate(current_velocity() * delta)
 
+
 func switch_idle_walking():
 	wish_walking = 1 - wish_walking
 
+
 func stop_walking():
 	wish_walking = 0
+
 
 func current_velocity():
 	return walking_velocity * walking
@@ -130,9 +131,9 @@ func reset_shoot_pattern(points):
 	shoot_pattern_index = 0
 
 
-
 var shoot_pattern = [[],[],[],[]]
 var shoot_pattern_index = 0
+
 func shoot_pattern_process():
 	if shoot_pattern_index < shoot_pattern[0].size():
 		var arms = get_node("Arms").get_children()
@@ -177,6 +178,7 @@ func lines_shoot_pattern_horizontal(midpoint_y=0):
 	
 	return points
 
+
 func lines_shoot_pattern_vertical(midpoint_x=0):
 	var points = [[],[],[],[]]
 	
@@ -188,6 +190,7 @@ func lines_shoot_pattern_vertical(midpoint_x=0):
 		points[3].append([Vector2(midpoint_x - 0.2, -y), true])
 	
 	return points
+
 
 func cross_shoot_pattern():
 	var points = [[],[],[],[]]
@@ -204,6 +207,7 @@ func cross_shoot_pattern():
 			points[2].append([Vector2(x, -y), true])
 			points[3].append([Vector2(-x, -y), true])
 	return points
+
 
 func spiral_shoot_pattern(length = 60, begin_radius = 0.1, end_radius = 1):
 	var points = [[],[],[],[]]
@@ -223,6 +227,7 @@ func spiral_shoot_pattern(length = 60, begin_radius = 0.1, end_radius = 1):
 
 
 var attacking = false
+
 func ai_process(delta):
 	if !alive():
 		get_node("Petals/Shooter").damage = 0

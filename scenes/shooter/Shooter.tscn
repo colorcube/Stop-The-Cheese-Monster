@@ -26,6 +26,7 @@ autostart = false
 
 [node name="Particles" type="Particles" parent="."]
 
+visible = false
 layers = 1
 material_override = null
 cast_shadow = 1

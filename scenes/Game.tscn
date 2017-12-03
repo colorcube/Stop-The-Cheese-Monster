@@ -1,15 +1,16 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/Game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ground/Ground.gd" type="Script" id=2]
 [ext_resource path="res://scenes/ground/GroundMesh.tscn" type="PackedScene" id=3]
-[ext_resource path="res://samples/arm1.wav" type="AudioStream" id=4]
-[ext_resource path="res://samples/explosion3.wav" type="AudioStream" id=5]
-[ext_resource path="res://samples/hit4.wav" type="AudioStream" id=6]
-[ext_resource path="res://samples/explosion5.wav" type="AudioStream" id=7]
-[ext_resource path="res://samples/hit2.wav" type="AudioStream" id=8]
-[ext_resource path="res://samples/shoot1.wav" type="AudioStream" id=9]
-[ext_resource path="res://gui/theme.tres" type="Theme" id=10]
+[ext_resource path="res://scenes/player/PlayerController.tscn" type="PackedScene" id=4]
+[ext_resource path="res://samples/arm1.wav" type="AudioStream" id=5]
+[ext_resource path="res://samples/explosion3.wav" type="AudioStream" id=6]
+[ext_resource path="res://samples/hit4.wav" type="AudioStream" id=7]
+[ext_resource path="res://samples/explosion5.wav" type="AudioStream" id=8]
+[ext_resource path="res://samples/hit2.wav" type="AudioStream" id=9]
+[ext_resource path="res://samples/shoot1.wav" type="AudioStream" id=10]
+[ext_resource path="res://gui/theme.tres" type="Theme" id=11]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -195,7 +196,6 @@ _sections_unfolded = [ "Editor", "Light", "Shadow", "Visibility" ]
 [node name="Ground" type="Spatial" parent="."]
 
 pause_mode = 1
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -70, 0 )
 script = ExtResource( 2 )
 _sections_unfolded = [ "Transform", "Visibility" ]
@@ -209,10 +209,12 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 transform = Transform( 1000, 0, 0, 0, 1000, 0, 0, 0, 1000, 0, 0, -20115 )
 _sections_unfolded = [ "Pause", "Transform", "Visibility" ]
 
+[node name="PlayerController" parent="." instance=ExtResource( 4 )]
+
 [node name="SoundMonsterArm" type="AudioStreamPlayer" parent="."]
 
 pause_mode = 1
-stream = ExtResource( 4 )
+stream = ExtResource( 5 )
 volume_db = -20.0
 autoplay = false
 mix_target = 0
@@ -222,7 +224,7 @@ _sections_unfolded = [ "Pause" ]
 [node name="SoundMonsterExplosion" type="AudioStreamPlayer" parent="."]
 
 pause_mode = 1
-stream = ExtResource( 5 )
+stream = ExtResource( 6 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -232,7 +234,7 @@ _sections_unfolded = [ "Pause" ]
 [node name="SoundMonsterHit" type="AudioStreamPlayer" parent="."]
 
 pause_mode = 1
-stream = ExtResource( 6 )
+stream = ExtResource( 7 )
 volume_db = -20.0
 autoplay = false
 mix_target = 0
@@ -252,7 +254,7 @@ _sections_unfolded = [ "Pause" ]
 [node name="SoundPlayerExplosion" type="AudioStreamPlayer" parent="."]
 
 pause_mode = 1
-stream = ExtResource( 7 )
+stream = ExtResource( 8 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -262,7 +264,7 @@ _sections_unfolded = [ "Pause" ]
 [node name="SoundPlayerHit" type="AudioStreamPlayer" parent="."]
 
 pause_mode = 1
-stream = ExtResource( 8 )
+stream = ExtResource( 9 )
 volume_db = -20.0
 autoplay = false
 mix_target = 0
@@ -272,7 +274,7 @@ _sections_unfolded = [ "Pause" ]
 [node name="SoundPlayerShoot" type="AudioStreamPlayer" parent="."]
 
 pause_mode = 1
-stream = ExtResource( 9 )
+stream = ExtResource( 10 )
 volume_db = -20.0
 autoplay = false
 mix_target = 0
@@ -310,7 +312,7 @@ rect_clip_content = false
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 10 )
+theme = ExtResource( 11 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -349,7 +351,7 @@ rect_clip_content = false
 mouse_filter = 2
 size_flags_horizontal = 1
 size_flags_vertical = 4
-theme = ExtResource( 10 )
+theme = ExtResource( 11 )
 text = "GAME OVER"
 align = 1
 percent_visible = 1.0
@@ -372,7 +374,7 @@ rect_clip_content = false
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 10 )
+theme = ExtResource( 11 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -410,7 +412,7 @@ rect_clip_content = false
 mouse_filter = 2
 size_flags_horizontal = 1
 size_flags_vertical = 4
-theme = ExtResource( 10 )
+theme = ExtResource( 11 )
 text = "YOU DEFEATED THE MONSTER"
 align = 1
 percent_visible = 1.0
@@ -433,7 +435,7 @@ rect_clip_content = false
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 10 )
+theme = ExtResource( 11 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null

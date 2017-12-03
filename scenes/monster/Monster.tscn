@@ -278,13 +278,11 @@ disabled = false
 [node name="Arm" parent="Arms" instance=ExtResource( 2 )]
 
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 14, 14, 0 )
-_sections_unfolded = [ "Collision", "collision" ]
 material = SubResource( 5 )
 
 [node name="Arm 2" parent="Arms" instance=ExtResource( 2 )]
 
 transform = Transform( 4.37114e-08, 0, 1, 0, 1, 0, 1, 0, -4.37114e-08, -14, 14, 0 )
-_sections_unfolded = [ "Collision", "collision" ]
 flipped = true
 material = SubResource( 6 )
 
@@ -297,7 +295,6 @@ material = SubResource( 7 )
 [node name="Arm 4" parent="Arms" instance=ExtResource( 2 )]
 
 transform = Transform( -2.8213e-07, 0, 1, -5.6426e-07, -1, -1.59195e-13, 1, -5.6426e-07, 2.8213e-07, -14, 0, 0 )
-_sections_unfolded = [ "Collision", "collision" ]
 material = SubResource( 8 )
 
 [node name="Spiderbot" parent="." instance=ExtResource( 3 )]
@@ -341,6 +338,7 @@ autostart = true
 [node name="SmokeParticles" type="Particles" parent="."]
 
 transform = Transform( 1, 0, 0, 0, -0.0280334, 0.999607, 0, -0.999607, -0.0280334, 0, -1.71375, 0.392387 )
+visible = false
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -370,6 +368,7 @@ draw_pass_1 = null
 [node name="ExplosionParticles" type="Particles" parent="."]
 
 transform = Transform( 1, 0, 0, 0, -0.0280334, 0.999607, 0, -0.999607, -0.0280334, 0, -1.71375, 0.392387 )
+visible = false
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -399,6 +398,7 @@ draw_pass_1 = null
 [node name="Particles" type="Particles" parent="."]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.7418, 14.4065, 0 )
+visible = false
 layers = 1
 material_override = null
 cast_shadow = 1
